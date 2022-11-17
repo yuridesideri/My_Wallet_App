@@ -19,7 +19,7 @@ export default function LogIn() {
         <input type="text" placeholder='Senha'/>
         <button type='submit'>Entrar</button>
       </form>
-        <Link href='/log-on'>Primeira vez? Cadastre-se</Link>
+        <Link href='/sign-up'>Primeira vez? Cadastre-se</Link>
     </div>
   )
 }
