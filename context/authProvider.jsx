@@ -3,6 +3,8 @@ export const userContext = createContext(null)
 export const useUserData = () => useContext(userContext);
 
 
+//Context ainda não utilizado, futuras implementações
+
 export default function UserDataProvider({children}) {
     const [userData, setUserData] = useState({});
 

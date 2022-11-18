@@ -9,7 +9,6 @@ export default function EntryLog(props) {
     const [sessionToken, setSessionToken] = useState('')
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
     const total = parseRegisters(registers);
-    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
             setSessionToken(sessionStorage.getItem('token'));

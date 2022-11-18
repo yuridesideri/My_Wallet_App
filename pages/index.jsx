@@ -22,18 +22,14 @@ export default function LogIn() {
       };
     }
   },[])
-  // useEffect(() => {
-  //   const sessionToken = sessionStorage.getItem('token');
-  //   if (sessionToken) {
-      
-  //   };
-  // }, [])
-  console.log(userData);
+
   useEffect(() => {
     if (token){
       sessionStorage.setItem('token', token);
       axios.get(apiUrl + '/account-details', {headers:{authentication: `Bearer ${token}`}})
-            .then(res => setUserData({...res.data, token}));
+      .then(res => {setUserData({...res.data})
+      sessionStorage.setItem('name', res.data.name)
+    });
       router.push("/authenticated/dashboard")
     }
   }, [token])

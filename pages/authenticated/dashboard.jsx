@@ -2,12 +2,14 @@ import { IoExitOutline } from "react-icons/io5"
 import { useRouter } from "next/router";
 import EntryLog from "../../components/EntryLog";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi"
-import { useUserData } from "../../context/authProvider";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Dashboard(props) {
-    const [{name}, setUserData] = useUserData()
+    const [name, setName] = useState('');
     const router = useRouter()
+
+    useEffect(() => {setName(sessionStorage.getItem('name'))}, [])
 
     function handleLogOut(e) {
         router.push('/');
