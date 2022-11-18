@@ -6,15 +6,19 @@ import { useUserData } from "../../context/authProvider";
 import Link from "next/link";
 
 export default function Dashboard(props) {
-    const { name } = useUserData()
+    const [{name}, setUserData] = useUserData()
     const router = useRouter()
+
+    function handleLogOut(e) {
+        router.push('/');
+    }
 
     return (
         <div className="h-screen bg-purple-600 flex justify-center items-center">
             <div className="h-[667px] w-[375px] flex flex-col px-[24px] py-[16px]">
                 <div className=" grow flex justify-between items-center">
                     <h1 className="text-white text-[26px]">Olá, {name && `${name}`}</h1>
-                    <IoExitOutline onClick={() => router.push("/")} className="w-7 h-7 text-white"/>
+                    <IoExitOutline onClick={handleLogOut} className="w-7 h-7 text-white"/>
                 </div>
                 <EntryLog />
                 <div className="grow flex justify-between">

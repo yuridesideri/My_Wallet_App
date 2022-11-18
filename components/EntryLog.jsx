@@ -6,12 +6,13 @@ import { parseRegisters } from "../helpers/helpers.js";
 
 export default function EntryLog(props) {
     const [registers, setRegisters] = useState([]);
-    const { sessionToken } = useUserData();
+    const [sessionToken, setSessionToken] = useState('')
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
     const total = parseRegisters(registers);
-
+    const [loading, setLoading] = useState(true);
+    
     useEffect(() => {
-        if (sessionToken) {
+            setSessionToken(sessionStorage.getItem('token'));
             axios
                 .get(apiUrl + "/transaction", {
                     headers: { authentication: `Bearer ${sessionToken}` },
@@ -20,22 +21,28 @@ export default function EntryLog(props) {
                     setRegisters(res.data);
                 })
                 .catch(({ request }) => {
-                    console.log(request.status);
+                    console.log(request.status, request);
                 });
-        }
     }, [sessionToken]);
+    
+
+    if (registers.length === 0) {
+        return (
+            <div className="my-[13px] flex h-[446px] w-[326px] flex-col overflow-auto rounded-md bg-white py-[10px] px-[12px] scrollbar-hide pb-0">
+                <p className="mx-auto my-auto w-52 text-center text-[20px] font-light text-[#868686]">
+                        Não há registros de entrada ou saída
+                    </p>
+            </div>
+        )
+    }
 
     return (
         <div className="my-[13px] flex h-[446px] w-[326px] flex-col overflow-auto rounded-md bg-white py-[10px] px-[12px] scrollbar-hide pb-0">
             <ul className="mb-8">
-                {registers.length > 0 ? (
+                {registers.length > 0 && (
                     registers.map((register, registerInd) => (
                         <Registry key={`Registry- ${registerInd}`} data={register} />
                     ))
-                ) : (
-                    <p className="mx-auto my-auto w-52 text-center text-[20px] font-light text-[#868686]">
-                        Não há registros de entrada ou saída
-                    </p>
                 )}
             </ul>
             <div className="sticky bottom-0 flex items-center justify-between rounded-lg min-h-[64px] my-gradient ">

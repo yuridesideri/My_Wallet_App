@@ -12,7 +12,7 @@ export default function transaction({ type }) {
     const router = useRouter();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { sessionToken } = useUserData();
+    const [{ token }, setUserData] = useUserData();
     function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
@@ -21,14 +21,16 @@ export default function transaction({ type }) {
             .post(
                 apiUrl + "/transaction",
                 { value, description, type },
-                { headers: { Authentication: `Bearer ${sessionToken}` } }
+                { headers: { Authentication: `Bearer ${token}` } }
             )
             .then((res) => {
                 if (res.status === 201) router.push("/authenticated/dashboard");
+                setLoading(false);
             })
             .catch(({ request }) => {
                 if (request?.status === 408) router.push("/"); //TODO BETTER TOKEN EXPIRATION MESSAGE
                 if (request?.status === 409) setError("Invalid values");
+                setLoading(false)
             });
     }
 

@@ -4,11 +4,13 @@ import { Puff } from "react-loader-spinner";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useUserData } from '../context/authProvider';
 
 export default function LogIn() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [token, setToken] = useState(null);
+  const [userData, setUserData] = useUserData();
   const router = useRouter();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
 
@@ -20,10 +22,18 @@ export default function LogIn() {
       };
     }
   },[])
-
+  // useEffect(() => {
+  //   const sessionToken = sessionStorage.getItem('token');
+  //   if (sessionToken) {
+      
+  //   };
+  // }, [])
+  console.log(userData);
   useEffect(() => {
     if (token){
       sessionStorage.setItem('token', token);
+      axios.get(apiUrl + '/account-details', {headers:{authentication: `Bearer ${token}`}})
+            .then(res => setUserData({...res.data, token}));
       router.push("/authenticated/dashboard")
     }
   }, [token])

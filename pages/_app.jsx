@@ -4,19 +4,11 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
-  const [userData, setUserData] = useState({});
-  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
 
-  useEffect(() => {
-    const sessionToken = sessionStorage.getItem('token');
-    if (sessionToken) {
-      axios.get(apiUrl + '/account-details', {headers:{authentication: `Bearer ${sessionToken}`}})
-            .then(res => setUserData({...res.data, sessionToken}))
-    };
-  }, [])
+
 
   return (
-    <UserContextProvider changestate={userData}>
+    <UserContextProvider>
       <Component {...pageProps} />
     </UserContextProvider>
   )
