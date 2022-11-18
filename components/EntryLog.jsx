@@ -48,7 +48,7 @@ export default function EntryLog(props) {
             <div className="sticky bottom-0 flex items-center justify-between rounded-lg min-h-[64px] my-gradient ">
                 <p className="font-semibold">SALDO</p>
                 {/* Needs Gradient*/}
-                {total && <p className={`${total > 0 ? "text-[#03AC00]" : "text-[#C70000]"} font-semibold`}>{total}</p>}
+                {total && <p className={`${total > 0 ? "text-[#03AC00]" : "text-[#C70000]"} font-medium`}>{total.replace('.',',')}</p>}
             </div>
         </div>
     );
