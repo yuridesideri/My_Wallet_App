@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        title: ["Saira Stencil One"]
+        title: ["Saira Stencil One"],
+        paragraph: ["Raleway"]
       },
     },
     
