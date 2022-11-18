@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { IoExitOutline } from "react-icons/io5"
 import { useRouter } from "next/router";
 import EntryLog from "../../components/EntryLog";
@@ -7,11 +6,8 @@ import { useUserData } from "../../context/authProvider";
 import Link from "next/link";
 
 export default function Dashboard(props) {
-    const user = useUserData();
-    const [{name}, setUser] = useState(user || {})
+    const { name } = useUserData()
     const router = useRouter()
-
-    useEffect(() => {setUser(user || {})}, [user])
 
     return (
         <div className="h-screen bg-purple-600 flex justify-center items-center">

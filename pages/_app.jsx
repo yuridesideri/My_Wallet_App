@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({});
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
 
   useEffect(() => {

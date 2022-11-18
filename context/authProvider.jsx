@@ -4,7 +4,6 @@ export const useUserData =  () => useContext(userContext);
 
 
 export default function UserDataProvider({children, changestate}) {
-    const [userData, setUserData] = useState(changestate)
 
 
     return (
