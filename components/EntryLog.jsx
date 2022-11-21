@@ -35,7 +35,7 @@ export default function EntryLog(props) {
     }
 
     return (
-        <div className="relative my-[13px] flex h-[446px] w-[326px] flex-col overflow-auto rounded-md bg-white py-[10px] px-[12px] scrollbar-hide pb-0">
+        <div className="relative my-[13px] flex min-h-[446px] w-[326px] flex-col overflow-auto rounded-md bg-white py-[10px] px-[12px] scrollbar-hide pb-0">
             <ul className="mb-8">
                 {registers.length > 0 && (
                     registers.map((register, registerInd) => (
@@ -43,11 +43,13 @@ export default function EntryLog(props) {
                     ))
                 )}
             </ul>
-            <div className="sticky bottom-0 flex items-center justify-between rounded-lg min-h-[64px] my-gradient ">
-                <p className="font-semibold">SALDO</p>
-                {/* Needs Gradient*/}
-                {total && <p className={`${total > 0 ? "text-[#03AC00]" : "text-[#C70000]"} font-medium`}>{total.replace('.',',')}</p>}
-            </div>
+            <div className="grow sticky bottom-0 flex items-end">
+                    <div className="min-h-[50px] flex justify-between w-full my-gradient pt-3">
+                        <p className="font-bold">SALDO</p>
+                        {/* Needs Gradient*/}
+                        {total && <p className={`${total > 0 ? "text-[#03AC00]" : "text-[#C70000]"} font-medium`}>{total.replace('.',',')}</p>}
+                    </div>
+                </div>
         </div>
     );
 }
