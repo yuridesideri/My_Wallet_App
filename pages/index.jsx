@@ -49,7 +49,7 @@ export default function LogIn() {
     .catch(({request}) => {
       const status = request?.status;
       if (status === 0) setError("Couldn't connect to server");
-      if (status === 406) setError("Wrong email and/or password");
+      if (status === 406 || status === 422) setError("Wrong email and/or password");
       setLoading(false);
     })
   }

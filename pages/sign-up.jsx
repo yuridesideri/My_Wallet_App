@@ -29,7 +29,6 @@ export default function SignUp(props) {
             .then((res) => {
                 const {status} = res;
                 if (status === 201) {
-                    console.log(res.data);
                     router.push('/');
                 }
                 setLoading(false);

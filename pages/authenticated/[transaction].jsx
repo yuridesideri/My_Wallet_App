@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserData } from "../../context/authProvider";
 import { IoChevronBackSharp } from "react-icons/io5";
 import { Puff } from "react-loader-spinner";
@@ -12,7 +12,13 @@ export default function transaction({ type }) {
     const router = useRouter();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [{ token }, setUserData] = useUserData();
+    const [token, setToken] = useState('');
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        setToken(token);
+    }, [])
+    
     function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
@@ -28,8 +34,10 @@ export default function transaction({ type }) {
                 setLoading(false);
             })
             .catch(({ request }) => {
-                if (request?.status === 408) router.push("/"); //TODO BETTER TOKEN EXPIRATION MESSAGE
-                if (request?.status === 409) setError("Invalid values");
+                const status = request?.status;
+                if (status === 408) router.push("/"); //TODO BETTER TOKEN EXPIRATION MESSAGE
+                if (status === 409) setError("Invalid values");
+                if (status === 422) setError("Value must be greater than 0 and description must have more than 3 characters")
                 setLoading(false)
             });
     }
@@ -66,7 +74,7 @@ export default function transaction({ type }) {
                     </button>
                 </form>
                 {error && (
-                    <p className="absolute bottom-80 self-center text-orange-400">
+                    <p className="absolute bottom-80 self-center text-center text-orange-400">
                         {error}
                     </p>
                 )}

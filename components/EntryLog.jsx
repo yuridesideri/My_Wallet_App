@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useUserData } from "../context/authProvider.jsx";
 import Registry from "./Registry.jsx";
 import { parseRegisters } from "../helpers/helpers.js";
 
@@ -20,7 +19,7 @@ export default function EntryLog(props) {
                     setRegisters(res.data);
                 })
                 .catch(({ request }) => {
-                    console.log(request.status, request);
+                    console.log(request)
                 });
     }, [sessionToken]);
     
@@ -36,7 +35,7 @@ export default function EntryLog(props) {
     }
 
     return (
-        <div className="my-[13px] flex h-[446px] w-[326px] flex-col overflow-auto rounded-md bg-white py-[10px] px-[12px] scrollbar-hide pb-0">
+        <div className="relative my-[13px] flex h-[446px] w-[326px] flex-col overflow-auto rounded-md bg-white py-[10px] px-[12px] scrollbar-hide pb-0">
             <ul className="mb-8">
                 {registers.length > 0 && (
                     registers.map((register, registerInd) => (
