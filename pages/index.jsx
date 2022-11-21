@@ -28,8 +28,9 @@ export default function LogIn() {
       sessionStorage.setItem('token', token);
       axios.get(apiUrl + '/account-details', {headers:{authentication: `Bearer ${token}`}})
       .then(res => {setUserData({...res.data})
-      sessionStorage.setItem('name', res.data.name)
-    });
+      sessionStorage.setItem('name', res.data.name);
+    })
+    .catch (({request}) => console.log(request))
       router.push("/authenticated/dashboard")
     }
   }, [token])

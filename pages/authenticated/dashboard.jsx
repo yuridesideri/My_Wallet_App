@@ -4,12 +4,21 @@ import EntryLog from "../../components/EntryLog";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi"
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { useUserData } from "../../context/authProvider";
 
 export default function Dashboard(props) {
-    const [name, setName] = useState('');
     const router = useRouter()
+    const [name, setName] = useState('');
+    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
 
-    useEffect(() => {setName(sessionStorage.getItem('name'))}, [])
+    useEffect(() => {
+            const token = sessionStorage.getItem('token');
+            axios.get(apiUrl + '/account-details', {headers:{authentication: `Bearer ${token}`}})
+            .then(res => {setName(res.data.name)
+            })
+        .catch (({request}) => console.log(request))
+        }, [])
 
     function handleLogOut(e) {
         router.push('/');
