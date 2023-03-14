@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useUserData } from "../../context/authProvider";
 import { IoChevronBackSharp } from "react-icons/io5";
 import { Puff } from "react-loader-spinner";
 
 
-export default function transaction({ type }) {
+export default function Transaction({ type }) {
     const translate = type === "in" ? "entrada" : type === "out" ? "saída" : null;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_ROUTE;
     const router = useRouter();

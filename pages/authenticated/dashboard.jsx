@@ -5,7 +5,6 @@ import { FiPlusCircle, FiMinusCircle } from "react-icons/fi"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useUserData } from "../../context/authProvider";
 
 export default function Dashboard(props) {
     const router = useRouter()
